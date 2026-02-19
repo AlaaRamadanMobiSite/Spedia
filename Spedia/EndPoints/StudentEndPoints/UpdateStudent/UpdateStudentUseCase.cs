@@ -1,0 +1,48 @@
+﻿using Spedia.EndPoints.StudentEndPoints.AddStudent;
+using Spedia.EndPoints.StudentEndPoints.StudentContextService;
+using Spedia.UploadFiles;
+using static FastEndpoints.Ep;
+
+namespace Spedia.EndPoints.StudentEndPoints.UpdateStudent
+{
+    public class UpdateStudentUseCase
+    {
+        private readonly IStudentContext IStudent;
+        private readonly IUploadImage uploadImage;
+        public UpdateStudentUseCase(IStudentContext IStudent , IUploadImage uploadImage)
+        {
+            this.IStudent = IStudent;
+            this.uploadImage = uploadImage; 
+        }
+
+        public async Task<bool> UpdateStudentAsync(UpdatStudentRequest request)
+        {
+            var student = await IStudent.GetStudentByID(request.StudentId);
+
+            if(student == null)
+            {
+                return false;   
+            }
+
+            var domain = new StudentDomainModel
+                (student.StudentName, student.StudentEmail , student.StudentPass ,student.StudentImage, student.LevelId);
+            var studentImagePath = "";
+            if (request.StudentImage != null)
+                studentImagePath = uploadImage.post_file(request.StudentImage);
+
+            domain.UpdateStudent(request.StudentName, request.StudentEmail, request.StudentPass, studentImagePath, request.LevelId);
+
+            var hashPass = BCrypt.Net.BCrypt.HashPassword(domain.StudentPass);
+            student.StudentName = domain.StudentName;
+            student.StudentEmail = domain.StudentEmail;
+            student.StudentPass = hashPass;
+            student.LevelId = domain.LevelId;
+            student.StudentImage = studentImagePath;
+
+            await IStudent.UpdateStudent(student);
+            return true;
+
+
+        }
+    }
+}
