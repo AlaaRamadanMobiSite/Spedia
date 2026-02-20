@@ -5,10 +5,10 @@ using System.Threading.Tasks;
 
 namespace Spedia.EndPoints.StudentEndPoints.StudentContextService
 {
-    public class StudentContext : IStudentContext
+    public class StudentSevice : IStudentService
     {
         private readonly SpediaContext Context;
-        public StudentContext(SpediaContext Context)
+        public StudentSevice(SpediaContext Context)
         {
             this.Context = Context;
         }
@@ -24,7 +24,7 @@ namespace Spedia.EndPoints.StudentEndPoints.StudentContextService
             return await Context.StudentTBs.ToListAsync();
         }
 
-        public async Task<StudentTB> GetStudentByID(int studentId)
+        public async Task<StudentTB?> GetStudentByID(int studentId)
         {
             return await Context.StudentTBs.Where(x => x.StudentId == studentId).FirstOrDefaultAsync();
         }

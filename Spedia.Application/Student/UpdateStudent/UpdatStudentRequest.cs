@@ -1,4 +1,6 @@
-﻿namespace Spedia.EndPoints.StudentEndPoints.UpdateStudent
+﻿using Microsoft.AspNetCore.Http;
+
+namespace Spedia.EndPoints.StudentEndPoints.UpdateStudent
 {
     public class UpdatStudentRequest
     {

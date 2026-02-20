@@ -53,14 +53,14 @@
 
         public void UpdateStudentName(string StudentName)
         {
-            if (string.IsNullOrWhiteSpace(StudentName) /*|| StudentName.Trim().Split(" ").Length < 4*/)
+            if (string.IsNullOrWhiteSpace(StudentName) || StudentName.Trim().Split(" ").Length < 4)
                 throw new ArgumentException("الاسم يجب ان يكون رباعي");
             this.StudentName = StudentName;
         }
 
         public void UpdateStudentEmail(string StudentEmail)
         {
-            if (string.IsNullOrWhiteSpace(StudentEmail) /*|| !StudentEmail.Trim().Contains("@")*/)
+            if (string.IsNullOrWhiteSpace(StudentEmail) || !StudentEmail.Trim().Contains("@"))
                 throw new ArgumentException("يجب الايميل يحتوي علي حرف @");
             this.StudentEmail = StudentEmail;
         }

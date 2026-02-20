@@ -1,4 +1,6 @@
-﻿namespace Spedia.UploadFiles
+﻿using Microsoft.AspNetCore.Http;
+
+namespace Spedia.UploadFiles
 {
     public interface IUploadImage
     {

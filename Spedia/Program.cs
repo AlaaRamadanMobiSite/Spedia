@@ -1,6 +1,7 @@
 using FastEndpoints;
 using FastEndpoints.Swagger;
 using Microsoft.EntityFrameworkCore;
+using Spedia.Application.Student.GetStudentByID;
 using Spedia.DataBaseContext;
 using Spedia.DataBaseModels;
 using Spedia.EndPoints.StudentEndPoints.AddStudent;
@@ -25,12 +26,13 @@ builder.Services.SwaggerDocument();
 var connection = builder.Configuration.GetConnectionString("Default");
 builder.Services.AddDbContext<SpediaContext>(op => op.UseSqlServer(connection));
 
-builder.Services.AddScoped<IStudentContext, StudentContext>();
+builder.Services.AddScoped<IStudentService, StudentSevice>();
 builder.Services.AddScoped<StudentUseCase>();
 builder.Services.AddScoped<GetAllStudentsUseCase>();
 builder.Services.AddScoped<UpdateStudentUseCase>();
 builder.Services.AddScoped<IUploadImage, UploadImage>();
 builder.Services.AddScoped<DeleteStudentUseCase>();
+builder.Services.AddScoped<GetStudentByIdUseCase>();
 
 
 var app = builder.Build();

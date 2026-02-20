@@ -2,7 +2,7 @@
 
 namespace Spedia.EndPoints.StudentEndPoints.StudentContextService
 {
-    public interface IStudentContext
+    public interface IStudentService
     {
         Task AddStudent(StudentTB studentTB);
         Task<List<StudentTB>> GetAll();

@@ -1,4 +1,6 @@
-﻿namespace Spedia.EndPoints.StudentEndPoints.AddStudent
+﻿using Microsoft.AspNetCore.Http;
+
+namespace Spedia.EndPoints.StudentEndPoints.AddStudent
 {
     public class AddStudentRequest
     {

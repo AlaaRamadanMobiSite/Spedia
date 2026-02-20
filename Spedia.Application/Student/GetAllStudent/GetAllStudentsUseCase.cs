@@ -5,8 +5,8 @@ namespace Spedia.EndPoints.StudentEndPoints.GetAllStudents
 {
     public class GetAllStudentsUseCase
     {
-        private readonly IStudentContext IStudent;
-        public GetAllStudentsUseCase(IStudentContext IStudent)
+        private readonly IStudentService IStudent;
+        public GetAllStudentsUseCase(IStudentService IStudent)
         {
             this.IStudent = IStudent;
         }

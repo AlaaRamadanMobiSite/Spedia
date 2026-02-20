@@ -4,8 +4,8 @@ namespace Spedia.EndPoints.StudentEndPoints.DeleteStudent
 {
     public class DeleteStudentUseCase
     {
-        private readonly IStudentContext IStudent;
-        public DeleteStudentUseCase(IStudentContext IStudent)
+        private readonly IStudentService IStudent;
+        public DeleteStudentUseCase(IStudentService IStudent)
         {
             this.IStudent = IStudent;   
         }

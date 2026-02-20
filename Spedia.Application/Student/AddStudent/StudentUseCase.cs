@@ -6,9 +6,9 @@ namespace Spedia.EndPoints.StudentEndPoints.AddStudent
 {
     public class StudentUseCase
     {
-        private readonly IStudentContext IStudent;
+        private readonly IStudentService IStudent;
         private readonly IUploadImage uploadImage;
-        public StudentUseCase (IStudentContext IStudent , IUploadImage uploadImage)
+        public StudentUseCase (IStudentService IStudent , IUploadImage uploadImage)
         {
             this.IStudent = IStudent;
             this.uploadImage = uploadImage;
