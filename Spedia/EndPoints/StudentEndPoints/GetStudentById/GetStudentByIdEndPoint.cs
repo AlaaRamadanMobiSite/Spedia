@@ -21,20 +21,11 @@ namespace Spedia.EndPoints.StudentEndPoints.GetStudentById
         {
             try
             {
-
                 var student = await getStudent.GetStudentByIDAsync(request);
-                if (student != null)
-                {
-                    await Send.OkAsync(student, cancellationToken);
-                }
-                else
-                {
-                    await Send.StringAsync("عفواً، هذا الطالب غير موجود", 404, cancellation: cancellationToken);
-                }
+                await Send.OkAsync(student, cancellationToken);
             }
             catch (ArgumentException ex)
             {
-
                 AddError(ex.Message);
                 await Send.ErrorsAsync(400, cancellationToken);
             }

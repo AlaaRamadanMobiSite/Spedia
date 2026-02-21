@@ -1,4 +1,5 @@
-﻿using Spedia.EndPoints.StudentEndPoints.AddStudent;
+﻿using Spedia.Application.Student.UpdateStudent;
+using Spedia.EndPoints.StudentEndPoints.AddStudent;
 using Spedia.EndPoints.StudentEndPoints.StudentContextService;
 using Spedia.UploadFiles;
 using static FastEndpoints.Ep;
@@ -15,13 +16,19 @@ namespace Spedia.EndPoints.StudentEndPoints.UpdateStudent
             this.uploadImage = uploadImage; 
         }
 
-        public async Task<bool> UpdateStudentAsync(UpdatStudentRequest request)
+        public async Task<UpdateStudentResponse> UpdateStudentAsync(UpdatStudentRequest request)
         {
             var student = await IStudent.GetStudentByID(request.StudentId);
 
             if(student == null)
             {
-                return false;   
+                return new UpdateStudentResponse
+                {
+                    StausCode = 404,
+                    Message = "هذا الطالب غير موجود",
+                    IsSuccess = false,
+                    Data = null
+                };   
             }
 
             var domain = new StudentDomainModel
@@ -40,7 +47,21 @@ namespace Spedia.EndPoints.StudentEndPoints.UpdateStudent
             student.StudentImage = studentImagePath;
 
             await IStudent.UpdateStudent(student);
-            return true;
+            return new UpdateStudentResponse
+            {
+                StausCode = 200,
+                Message = "تم التعديل بنجاح",
+                IsSuccess = true,
+                Data = new UpdateStudentDto
+                {
+                    StudentId = student.StudentId,
+                    StudentName = student.StudentName,
+                    LevelId = student.LevelId,
+                    StudentEmail = domain.StudentEmail,
+                    StudentPass = hashPass,
+                    StudentImage = studentImagePath,
+                }
+            };
 
 
         }

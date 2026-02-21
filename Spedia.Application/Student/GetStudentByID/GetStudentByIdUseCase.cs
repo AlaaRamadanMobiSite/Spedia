@@ -15,22 +15,38 @@ namespace Spedia.Application.Student.GetStudentByID
                 this.Studentservice = Studentservice;
         }
 
-        public async Task<GetStudentByIDResponse?> GetStudentByIDAsync (GetStudentByIDRequest request)
+        public async Task<GetStudentByIDResponse> GetStudentByIDAsync (GetStudentByIDRequest request)
         {
             var student =await Studentservice.GetStudentByID(request.Id);
-            if (student == null) return null;
-
-            return new GetStudentByIDResponse
+            if (student == null)
+            {
+                return new GetStudentByIDResponse
                 {
-                    StudentName = student.StudentName,
-                    LevelId = student.LevelId,  
-                    StudentEmail = student.StudentEmail,
-                    StudentId = student.StudentId,  
-                    StudentImage = student.StudentImage,    
-                    StudentPass = student.StudentPass   
-                    
+                    StausCode = 404,
+                    Message = "هذا الطالب غير موجود",
+                    IsSuccess = false,
+                    Data = null,
                 };
-            
+            }
+            else
+            {
+                return new GetStudentByIDResponse
+                {
+                    StausCode = 200,
+                    Message = "هذا الطالب  موجود",
+                    IsSuccess = true,
+                    Data = new GetStudentByIdDto
+                    {
+                        StudentId = student.StudentId,
+                        StudentName = student.StudentName,
+                        LevelId = student.LevelId,
+                        StudentEmail = student.StudentEmail,
+                        StudentImage = student.StudentImage,
+                        StudentPass = student.StudentPass   
+                    },
+                };
+            }
+
         }
     }
 }

@@ -1,9 +1,10 @@
-﻿namespace Spedia.EndPoints.StudentEndPoints.DeleteStudent
+﻿using Spedia.Application.StandardResponse;
+
+namespace Spedia.EndPoints.StudentEndPoints.DeleteStudent
 {
-    public class DeleteStudentResponse
+    public class DeleteStudentResponse : APIResponse<object>
     {
-        public bool Success { get; set; }
-        public string? Message { get; set; } 
+        
 
     }
 }

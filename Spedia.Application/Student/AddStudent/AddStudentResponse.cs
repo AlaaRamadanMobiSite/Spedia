@@ -1,11 +1,10 @@
-﻿namespace Spedia.EndPoints.StudentEndPoints.AddStudent
+﻿using Spedia.Application.StandardResponse;
+using Spedia.Application.Student.AddStudent;
+
+namespace Spedia.EndPoints.StudentEndPoints.AddStudent
 {
-    public class AddStudentResponse
+    public class AddStudentResponse :APIResponse<AddStudentDto>
     {
         
-        public string StudentName { get; set; } = string.Empty;
-        public string StudentEmail { get; set; } = string.Empty;
-        public string StudentPass { get; set; } = string.Empty;
-        public int LevelId { get; set; }
     }
 }

@@ -18,16 +18,20 @@ namespace Spedia.EndPoints.StudentEndPoints.DeleteStudent
                 await IStudent.Delete(student);
                 return new DeleteStudentResponse
                 {
-                    Success = true,
-                    Message = "تم مسح الطالب"
+                    StausCode = 200,
+                    IsSuccess = true,
+                    Message = "تم مسح الطالب",
+                    Data = null
                 };
             }
             else
             {
                 return new DeleteStudentResponse
                 {
-                    Success = false,
-                    Message = "هذا الطالب غير موجود"
+                    StausCode = 404,
+                    IsSuccess = false,
+                    Message = "هذا الطالب غير موجود",
+                    Data = null
                 };
             }
             

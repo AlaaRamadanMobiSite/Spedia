@@ -25,11 +25,8 @@ namespace Spedia.EndPoints.StudentEndPoints.UpdateStudent
         {
             try
             {
-                var response = useCase.UpdateStudentAsync(request);
-                if (await response)
-                    await Send.OkAsync("تم تحديث البيانات بنجاح", cancellationToken);
-                else
-                    await Send.NotFoundAsync(cancellationToken);
+                var response =await useCase.UpdateStudentAsync(request);
+                await Send.OkAsync(response, cancellationToken);
             }
             catch(ArgumentException ex)
             {

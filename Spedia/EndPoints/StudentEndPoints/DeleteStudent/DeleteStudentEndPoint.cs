@@ -22,9 +22,7 @@ namespace Spedia.EndPoints.StudentEndPoints.DeleteStudent
             try
             {
                 var student = await useCase.DeleteStudentAsync(request.Id);
-                if (student == null) await Send.OkAsync(student,cancellationToken);
-                else
-                    await Send.OkAsync(student, cancellationToken);
+                await Send.OkAsync(student, cancellationToken);
             }
             catch (ArgumentException ex)
             {

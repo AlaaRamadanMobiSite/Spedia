@@ -1,4 +1,5 @@
-﻿using Spedia.DataBaseModels;
+﻿using Spedia.Application.Student.AddStudent;
+using Spedia.DataBaseModels;
 using Spedia.EndPoints.StudentEndPoints.StudentContextService;
 using Spedia.UploadFiles;
 
@@ -23,27 +24,44 @@ namespace Spedia.EndPoints.StudentEndPoints.AddStudent
             var domain = new StudentDomainModel
                 (request.StudentName , request.StudentEmail , request.StudentPass, studentImagePath, request.LevelId);
 
-            var hashPass = BCrypt.Net.BCrypt.HashPassword(domain.StudentPass);
-
-            var student = new StudentTB()
+            var studentExist =await IStudent.GetStudentByEmail(request.StudentEmail);
+            if (studentExist != null)
             {
-                StudentName = domain.StudentName,
-                StudentEmail = domain.StudentEmail,
-                StudentPass = hashPass,
-                LevelId = domain.LevelId,
-                StudentImage = studentImagePath
-            };
-
-               await IStudent.AddStudent(student);
-            return new AddStudentResponse()
+                return new AddStudentResponse()
+                {
+                    StausCode = 400,
+                    Message = "هذا الايميل موجود",
+                    IsSuccess = true,
+                    Data =null
+                };
+            }
+            else
             {
-                StudentName = student.StudentName,
-                StudentEmail = student.StudentEmail,
-                StudentPass = student.StudentPass,
-                LevelId = student.LevelId,
-            };
-            
+                var hashPass = BCrypt.Net.BCrypt.HashPassword(domain.StudentPass);
+                var student = new StudentTB()
+                {
+                    StudentName = domain.StudentName,
+                    StudentEmail = domain.StudentEmail,
+                    StudentPass = hashPass,
+                    LevelId = domain.LevelId,
+                    StudentImage = studentImagePath
+                };
+                await IStudent.AddStudent(student);
+
+                return new AddStudentResponse()
+                {
+                    StausCode = 200,
+                    Message = "تمت الاضافه بنجاح",
+                    IsSuccess = true,
+                    Data = new AddStudentDto
+                    {
+                        StudentName = student.StudentName,
+                        StudentEmail = student.StudentEmail,
+                        StudentPass = hashPass,
+                        LevelId = student.LevelId,
+                    }
+                };
+            }
         }
-
     }
 }

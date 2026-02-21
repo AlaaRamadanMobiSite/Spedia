@@ -75,7 +75,7 @@
         public void UpdateLevelId(int LevelId)
         {
             if (LevelId <= 0)
-                throw new ArgumentException("اخل كلمه المرور");
+                throw new ArgumentException("اخل رقم الصف");
             this.LevelId = LevelId;
         }
 

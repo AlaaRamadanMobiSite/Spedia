@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace Spedia.EndPoints.StudentEndPoints.GetAllStudents
 {
-    public class GetAllStudentEndPoint : EndpointWithoutRequest<List<GetAllStudentResponse>>
+    public class GetAllStudentEndPoint : EndpointWithoutRequest<GetAllStudentResponse>
     {
         private readonly GetAllStudentsUseCase UseCase;
         public GetAllStudentEndPoint(GetAllStudentsUseCase UseCase)
@@ -24,10 +24,9 @@ namespace Spedia.EndPoints.StudentEndPoints.GetAllStudents
             try
             {
                 var response = await UseCase.GetAllStudentAsync();
-                if (response != null)
-                    await Send.OkAsync( response,cancellationToken);
-                else
-                    await Send.NotFoundAsync(cancellationToken);
+              
+                    await Send.OkAsync(response,cancellationToken);
+               
             }
             catch(ArgumentException ex)
             {

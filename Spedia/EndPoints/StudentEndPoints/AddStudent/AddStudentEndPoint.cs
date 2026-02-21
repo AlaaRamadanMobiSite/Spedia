@@ -23,16 +23,8 @@ namespace Spedia.EndPoints.StudentEndPoints.AddStudent
             try
             {
                 var response =await studentUseCase.AddStudentAsync(request);
-                if (response != null)
-                    await Send.OkAsync(new AddStudentResponse()
-                    {
-                        StudentName = response.StudentName,
-                        StudentEmail = response.StudentEmail,
-                        LevelId = response.LevelId,
-                        StudentPass = response.StudentPass,
-                    }, cancellationToken);
-                else
-                    await Send.NotFoundAsync(cancellationToken);
+                await Send.OkAsync(response, cancellationToken);
+               
             }
             catch(ArgumentException ex)
             {

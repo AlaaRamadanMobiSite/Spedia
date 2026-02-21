@@ -1,4 +1,5 @@
-﻿using Spedia.DataBaseModels;
+﻿using Spedia.Application.Student.GetAllStudent;
+using Spedia.DataBaseModels;
 using Spedia.EndPoints.StudentEndPoints.StudentContextService;
 
 namespace Spedia.EndPoints.StudentEndPoints.GetAllStudents
@@ -11,20 +12,38 @@ namespace Spedia.EndPoints.StudentEndPoints.GetAllStudents
             this.IStudent = IStudent;
         }
 
-        public async Task<List<GetAllStudentResponse>> GetAllStudentAsync()
+        public async Task<GetAllStudentResponse> GetAllStudentAsync()
         {
             var student =  await IStudent.GetAll();
 
-            return student.Select(e=> new GetAllStudentResponse
+            if(student == null)
             {
-                StudentName = e.StudentName,
-                StudentId = e.StudentId,
-                LevelId = e.LevelId,
-                StudentEmail = e.StudentEmail,
-                StudentPass = e.StudentPass,
-                StudentImage = e.StudentImage,
-            }).ToList();
+                return new GetAllStudentResponse
+                {
+                    StausCode = 404,
+                    Message = "لا يوجد طلاب",
+                    IsSuccess =false,
+                    Data = null
+                };
+            }
+            else
+            {
+                return new GetAllStudentResponse
+                {
+                    StausCode = 200,
+                    Message = "الطلاب الموجوده",
+                    IsSuccess = true,
+                    Data = student.Select(e => new GetAllStudentDto
+                    {
+                        StudentId = e.StudentId,
+                        StudentName = e.StudentName,
+                        LevelId = e.LevelId,
+                        StudentEmail = e.StudentEmail,
+                        StudentImage = e.StudentImage,
+                        StudentPass = e.StudentPass,
+                    }).ToList()
+                };
+            }
         }
-
     }
 }

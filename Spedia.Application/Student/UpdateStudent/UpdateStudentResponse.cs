@@ -5,10 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Spedia.Application.Student.GetStudentByID
+namespace Spedia.Application.Student.UpdateStudent
 {
-    public class GetStudentByIDResponse : APIResponse<GetStudentByIdDto>
+    public class UpdateStudentResponse : APIResponse<UpdateStudentDto>
     {
-        
     }
 }
