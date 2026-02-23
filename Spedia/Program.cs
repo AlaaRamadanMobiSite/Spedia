@@ -1,6 +1,7 @@
-using FastEndpoints;
+﻿using FastEndpoints;
 using FastEndpoints.Swagger;
 using Microsoft.EntityFrameworkCore;
+using Spedia.Application.StandardResponse;
 using Spedia.Application.Student.GetStudentByID;
 using Spedia.DataBaseContext;
 using Spedia.DataBaseModels;
@@ -36,7 +37,20 @@ builder.Services.AddScoped<GetStudentByIdUseCase>();
 
 
 var app = builder.Build();
-app.UseFastEndpoints();
+app.UseFastEndpoints(config =>
+{
+    config.Errors.ResponseBuilder = (failures, ctx, statusCode) =>
+    {
+        ctx.Response.StatusCode = 400;
+        return new APIResponse<object>
+        {
+            ErrorCode = int.TryParse(failures.First().ErrorCode, out int code) ? code : 400,
+            Message = failures.First().ErrorMessage,
+            IsSuccess = false,
+            Data = null
+        };
+    };
+});
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

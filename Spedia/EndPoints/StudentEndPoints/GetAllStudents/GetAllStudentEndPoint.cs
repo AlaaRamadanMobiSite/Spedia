@@ -24,11 +24,14 @@ namespace Spedia.EndPoints.StudentEndPoints.GetAllStudents
             try
             {
                 var response = await UseCase.GetAllStudentAsync();
-              
-                    await Send.OkAsync(response,cancellationToken);
-               
+
+                if (response.ErrorCode == 200)
+                    await Send.ResponseAsync(response, 200, cancellationToken);
+                else
+                    await Send.ResponseAsync(response, 204, cancellationToken);
+
             }
-            catch(ArgumentException ex)
+            catch (ArgumentException ex)
             {
                 AddError(ex.Message);
                 await Send.ErrorsAsync(400, cancellationToken);

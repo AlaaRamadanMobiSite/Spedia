@@ -22,7 +22,8 @@ namespace Spedia.Application.Student.GetStudentByID
             {
                 return new GetStudentByIDResponse
                 {
-                    StausCode = 404,
+                    // 105 => ID Not Found
+                    ErrorCode = 105,
                     Message = "هذا الطالب غير موجود",
                     IsSuccess = false,
                     Data = null,
@@ -32,7 +33,7 @@ namespace Spedia.Application.Student.GetStudentByID
             {
                 return new GetStudentByIDResponse
                 {
-                    StausCode = 200,
+                    ErrorCode = 0,
                     Message = "هذا الطالب  موجود",
                     IsSuccess = true,
                     Data = new GetStudentByIdDto

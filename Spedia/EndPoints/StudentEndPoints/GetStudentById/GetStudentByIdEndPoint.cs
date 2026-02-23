@@ -13,7 +13,7 @@ namespace Spedia.EndPoints.StudentEndPoints.GetStudentById
 
         public override void Configure()
         {
-            Post("Student/GetById");
+            Get("Student/GetById/{Id}");
             AllowAnonymous();
         }
 
@@ -22,7 +22,10 @@ namespace Spedia.EndPoints.StudentEndPoints.GetStudentById
             try
             {
                 var student = await getStudent.GetStudentByIDAsync(request);
-                await Send.OkAsync(student, cancellationToken);
+                if (student.ErrorCode == 200)
+                    await Send.ResponseAsync(student, 200, cancellationToken);
+                else
+                    await Send.ResponseAsync(student, 404, cancellationToken);
             }
             catch (ArgumentException ex)
             {

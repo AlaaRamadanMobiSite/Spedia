@@ -26,9 +26,12 @@ namespace Spedia.EndPoints.StudentEndPoints.UpdateStudent
             try
             {
                 var response =await useCase.UpdateStudentAsync(request);
-                await Send.OkAsync(response, cancellationToken);
+                if (response.ErrorCode == 200)
+                    await Send.ResponseAsync(response, 200, cancellationToken);
+                else
+                    await Send.ResponseAsync(response, 404, cancellationToken);
             }
-            catch(ArgumentException ex)
+            catch (ArgumentException ex)
             {
                 AddError(ex.Message); 
                 await Send.ErrorsAsync(400, cancellationToken);

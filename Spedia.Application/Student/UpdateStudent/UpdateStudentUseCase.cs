@@ -24,7 +24,8 @@ namespace Spedia.EndPoints.StudentEndPoints.UpdateStudent
             {
                 return new UpdateStudentResponse
                 {
-                    StausCode = 404,
+                    // 105 => ID Not Found
+                    ErrorCode = 105,
                     Message = "هذا الطالب غير موجود",
                     IsSuccess = false,
                     Data = null
@@ -49,7 +50,7 @@ namespace Spedia.EndPoints.StudentEndPoints.UpdateStudent
             await IStudent.UpdateStudent(student);
             return new UpdateStudentResponse
             {
-                StausCode = 200,
+                ErrorCode = 0,
                 Message = "تم التعديل بنجاح",
                 IsSuccess = true,
                 Data = new UpdateStudentDto

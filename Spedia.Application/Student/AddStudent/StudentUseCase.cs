@@ -29,9 +29,10 @@ namespace Spedia.EndPoints.StudentEndPoints.AddStudent
             {
                 return new AddStudentResponse()
                 {
-                    StausCode = 400,
+                    // 101 => Email Exist
+                    ErrorCode = 101,
                     Message = "هذا الايميل موجود",
-                    IsSuccess = true,
+                    IsSuccess = false,
                     Data =null
                 };
             }
@@ -50,7 +51,7 @@ namespace Spedia.EndPoints.StudentEndPoints.AddStudent
 
                 return new AddStudentResponse()
                 {
-                    StausCode = 200,
+                    ErrorCode = 0,
                     Message = "تمت الاضافه بنجاح",
                     IsSuccess = true,
                     Data = new AddStudentDto

@@ -20,7 +20,8 @@ namespace Spedia.EndPoints.StudentEndPoints.GetAllStudents
             {
                 return new GetAllStudentResponse
                 {
-                    StausCode = 404,
+                    // 105 => ID Not Found
+                    ErrorCode = 105,
                     Message = "لا يوجد طلاب",
                     IsSuccess =false,
                     Data = null
@@ -30,7 +31,7 @@ namespace Spedia.EndPoints.StudentEndPoints.GetAllStudents
             {
                 return new GetAllStudentResponse
                 {
-                    StausCode = 200,
+                    ErrorCode = 0,
                     Message = "الطلاب الموجوده",
                     IsSuccess = true,
                     Data = student.Select(e => new GetAllStudentDto

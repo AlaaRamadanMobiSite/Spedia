@@ -18,7 +18,7 @@ namespace Spedia.EndPoints.StudentEndPoints.DeleteStudent
                 await IStudent.Delete(student);
                 return new DeleteStudentResponse
                 {
-                    StausCode = 200,
+                    ErrorCode = 0,
                     IsSuccess = true,
                     Message = "تم مسح الطالب",
                     Data = null
@@ -28,7 +28,8 @@ namespace Spedia.EndPoints.StudentEndPoints.DeleteStudent
             {
                 return new DeleteStudentResponse
                 {
-                    StausCode = 404,
+                    // 105 => ID Not Found
+                    ErrorCode = 105,
                     IsSuccess = false,
                     Message = "هذا الطالب غير موجود",
                     Data = null

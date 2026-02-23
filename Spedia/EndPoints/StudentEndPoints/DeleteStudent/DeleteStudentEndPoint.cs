@@ -1,4 +1,5 @@
 ﻿using FastEndpoints;
+using Spedia.Migrations;
 
 namespace Spedia.EndPoints.StudentEndPoints.DeleteStudent
 {
@@ -22,7 +23,11 @@ namespace Spedia.EndPoints.StudentEndPoints.DeleteStudent
             try
             {
                 var student = await useCase.DeleteStudentAsync(request.Id);
-                await Send.OkAsync(student, cancellationToken);
+                if (student.ErrorCode == 204)
+                    await Send.ResponseAsync(student, 204, cancellationToken);
+                else
+                    await Send.ResponseAsync(student, 404, cancellationToken);
+
             }
             catch (ArgumentException ex)
             {
