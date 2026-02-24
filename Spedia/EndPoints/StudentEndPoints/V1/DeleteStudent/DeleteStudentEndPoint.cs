@@ -1,7 +1,8 @@
 ﻿using FastEndpoints;
+using Spedia.EndPoints.StudentEndPoints.DeleteStudent;
 using Spedia.Migrations;
 
-namespace Spedia.EndPoints.StudentEndPoints.DeleteStudent
+namespace Spedia.EndPoints.StudentEndPoints.V1.DeleteStudent
 {
     public class DeleteStudentEndPoint : Endpoint<DeleteStudentRequest,DeleteStudentResponse>
     {
@@ -13,7 +14,7 @@ namespace Spedia.EndPoints.StudentEndPoints.DeleteStudent
 
         public override void Configure()
         {
-            Delete("Student/Delete/Student");
+            Delete("Student/V1/Delete/Student");
             AllowAnonymous();
             AllowFormData(true);
         }
@@ -26,7 +27,7 @@ namespace Spedia.EndPoints.StudentEndPoints.DeleteStudent
                 if (student.ErrorCode == 204)
                     await Send.ResponseAsync(student, 204, cancellationToken);
                 else
-                    await Send.ResponseAsync(student, 404, cancellationToken);
+                    await Send.ResponseAsync(student, 400, cancellationToken);
 
             }
             catch (ArgumentException ex)

@@ -1,6 +1,8 @@
 ﻿using FastEndpoints;
 using Microsoft.AspNetCore.Http;
-namespace Spedia.EndPoints.StudentEndPoints.AddStudent
+using Spedia.EndPoints.StudentEndPoints.AddStudent;
+
+namespace Spedia.EndPoints.StudentEndPoints.V1.AddStudent
 {
     public class AddStudentEndPoint : Endpoint<AddStudentRequest, AddStudentResponse>
     {
@@ -12,7 +14,7 @@ namespace Spedia.EndPoints.StudentEndPoints.AddStudent
 
         public override void Configure()
         {
-            Post("Student/Add/Student");
+            Post("Student/V1/Add/Student");
             AllowFormData(true);
             AllowAnonymous();
             AllowFileUploads();

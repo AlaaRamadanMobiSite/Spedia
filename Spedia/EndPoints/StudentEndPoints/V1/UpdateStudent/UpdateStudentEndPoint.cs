@@ -1,8 +1,9 @@
 ﻿using FastEndpoints;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Spedia.EndPoints.StudentEndPoints.AddStudent;
+using Spedia.EndPoints.StudentEndPoints.UpdateStudent;
 
-namespace Spedia.EndPoints.StudentEndPoints.UpdateStudent
+namespace Spedia.EndPoints.StudentEndPoints.V1.UpdateStudent
 {
     public class UpdateStudentEndPoint : Endpoint<UpdatStudentRequest>
     {
@@ -14,7 +15,7 @@ namespace Spedia.EndPoints.StudentEndPoints.UpdateStudent
 
         public override void Configure()
         {
-            Put("Student/Update/Student");
+            Put("Student/V1/Update/Student");
             AllowFormData(true);
             AllowAnonymous();
             AllowFileUploads();
@@ -29,7 +30,7 @@ namespace Spedia.EndPoints.StudentEndPoints.UpdateStudent
                 if (response.ErrorCode == 200)
                     await Send.ResponseAsync(response, 200, cancellationToken);
                 else
-                    await Send.ResponseAsync(response, 404, cancellationToken);
+                    await Send.ResponseAsync(response, 400, cancellationToken);
             }
             catch (ArgumentException ex)
             {

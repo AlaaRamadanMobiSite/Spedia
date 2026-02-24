@@ -1,7 +1,8 @@
 ﻿using FastEndpoints;
+using Spedia.EndPoints.StudentEndPoints.GetAllStudents;
 using System.Threading.Tasks;
 
-namespace Spedia.EndPoints.StudentEndPoints.GetAllStudents
+namespace Spedia.EndPoints.StudentEndPoints.V1.GetAllStudents
 {
     public class GetAllStudentEndPoint : EndpointWithoutRequest<GetAllStudentResponse>
     {
@@ -13,7 +14,7 @@ namespace Spedia.EndPoints.StudentEndPoints.GetAllStudents
 
         public override void Configure()
         {
-            Get("Student/Get/All/Student");
+            Get("Student/V1/Get/All/Student");
             //AllowFormData(true);
             AllowAnonymous();
             //Description(x => x.WithTags("Grades"));
@@ -28,7 +29,7 @@ namespace Spedia.EndPoints.StudentEndPoints.GetAllStudents
                 if (response.ErrorCode == 200)
                     await Send.ResponseAsync(response, 200, cancellationToken);
                 else
-                    await Send.ResponseAsync(response, 204, cancellationToken);
+                    await Send.ResponseAsync(response, 400, cancellationToken);
 
             }
             catch (ArgumentException ex)

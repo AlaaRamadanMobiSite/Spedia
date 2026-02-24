@@ -1,7 +1,7 @@
 ﻿using FastEndpoints;
 using Spedia.Application.Student.GetStudentByID;
 
-namespace Spedia.EndPoints.StudentEndPoints.GetStudentById
+namespace Spedia.EndPoints.StudentEndPoints.V1.GetStudentById
 {
     public class GetStudentByIdEndPoint : Endpoint<GetStudentByIDRequest, GetStudentByIDResponse>
     {
@@ -13,7 +13,7 @@ namespace Spedia.EndPoints.StudentEndPoints.GetStudentById
 
         public override void Configure()
         {
-            Get("Student/GetById/{Id}");
+            Get("Student/V1/GetById/{Id}");
             AllowAnonymous();
         }
 
@@ -25,7 +25,7 @@ namespace Spedia.EndPoints.StudentEndPoints.GetStudentById
                 if (student.ErrorCode == 200)
                     await Send.ResponseAsync(student, 200, cancellationToken);
                 else
-                    await Send.ResponseAsync(student, 404, cancellationToken);
+                    await Send.ResponseAsync(student, 400, cancellationToken);
             }
             catch (ArgumentException ex)
             {
