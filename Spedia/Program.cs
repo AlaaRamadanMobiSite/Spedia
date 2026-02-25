@@ -44,7 +44,8 @@ app.UseFastEndpoints(config =>
         ctx.Response.StatusCode = 400;
         return new APIResponse<object>
         {
-            ErrorCode = int.TryParse(failures.First().ErrorCode, out int code) ? code : 400,
+            //ErrorCode = int.TryParse(failures.First().ErrorCode, out int code) ? code : 400,
+            ErrorCode = int.Parse(failures.First().ErrorCode),
             Message = failures.First().ErrorMessage,
             IsSuccess = false,
             Data = null

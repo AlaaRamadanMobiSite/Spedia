@@ -1,4 +1,5 @@
-﻿using Spedia.Application.Student.UpdateStudent;
+﻿using Spedia.Application.StandardResponse;
+using Spedia.Application.Student.UpdateStudent;
 using Spedia.EndPoints.StudentEndPoints.AddStudent;
 using Spedia.EndPoints.StudentEndPoints.StudentContextService;
 using Spedia.UploadFiles;
@@ -25,7 +26,7 @@ namespace Spedia.EndPoints.StudentEndPoints.UpdateStudent
                 return new UpdateStudentResponse
                 {
                     // 105 => ID Not Found
-                    ErrorCode = 105,
+                    ErrorCode = (int)ErrorCodeResponse.StudentIDNotFound,
                     Message = "هذا الطالب غير موجود",
                     IsSuccess = false,
                     Data = null
@@ -50,7 +51,7 @@ namespace Spedia.EndPoints.StudentEndPoints.UpdateStudent
             await IStudent.UpdateStudent(student);
             return new UpdateStudentResponse
             {
-                ErrorCode = 0,
+                ErrorCode = (int)ErrorCodeResponse.Success,
                 Message = "تم التعديل بنجاح",
                 IsSuccess = true,
                 Data = new UpdateStudentDto

@@ -1,4 +1,5 @@
-﻿using Spedia.Application.Student.GetAllStudent;
+﻿using Spedia.Application.StandardResponse;
+using Spedia.Application.Student.GetAllStudent;
 using Spedia.DataBaseModels;
 using Spedia.EndPoints.StudentEndPoints.StudentContextService;
 using System.Linq;
@@ -21,8 +22,8 @@ namespace Spedia.EndPoints.StudentEndPoints.GetAllStudents
             {
                 return new GetAllStudentResponse
                 {
-                    // 105 => ID Not Found
-                    ErrorCode = 105,
+                    // 108 => StudentList Null
+                    ErrorCode = (int)ErrorCodeResponse.StudentListNull,
                     Message = "لا يوجد طلاب",
                     IsSuccess =false,
                     Data = null
@@ -32,7 +33,7 @@ namespace Spedia.EndPoints.StudentEndPoints.GetAllStudents
             {
                 return new GetAllStudentResponse
                 {
-                    ErrorCode = 0,
+                    ErrorCode = (int)ErrorCodeResponse.Success,
                     Message = "الطلاب الموجوده",
                     IsSuccess = true,
                     Data = student.Select(e => new GetAllStudentDto

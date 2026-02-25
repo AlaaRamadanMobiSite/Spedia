@@ -1,4 +1,5 @@
-﻿using Spedia.Application.Student.AddStudent;
+﻿using Spedia.Application.StandardResponse;
+using Spedia.Application.Student.AddStudent;
 using Spedia.DataBaseModels;
 using Spedia.EndPoints.StudentEndPoints.StudentContextService;
 using Spedia.UploadFiles;
@@ -31,7 +32,7 @@ namespace Spedia.EndPoints.StudentEndPoints.AddStudent
                 return new AddStudentResponse()
                 {
                     // 101 => Name Exist
-                    ErrorCode = 101,
+                    ErrorCode = (int)ErrorCodeResponse.StudentNameExist,
                     Message = "هذا الاسم موجود",
                     IsSuccess = false,
                     Data =null
@@ -42,7 +43,7 @@ namespace Spedia.EndPoints.StudentEndPoints.AddStudent
                 return new AddStudentResponse()
                 {
                     // 107 => Email Exist
-                    ErrorCode = 107,
+                    ErrorCode = (int)ErrorCodeResponse.StudentEmailExist,
                     Message = "هذا الايميل موجود",
                     IsSuccess = false,
                     Data = null
@@ -63,7 +64,7 @@ namespace Spedia.EndPoints.StudentEndPoints.AddStudent
 
                 return new AddStudentResponse()
                 {
-                    ErrorCode = 0,
+                    ErrorCode = (int)ErrorCodeResponse.Success,
                     Message = "تمت الاضافه بنجاح",
                     IsSuccess = true,
                     Data = new AddStudentDto

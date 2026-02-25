@@ -1,4 +1,5 @@
-﻿using Spedia.EndPoints.StudentEndPoints.StudentContextService;
+﻿using Spedia.Application.StandardResponse;
+using Spedia.EndPoints.StudentEndPoints.StudentContextService;
 
 namespace Spedia.EndPoints.StudentEndPoints.DeleteStudent
 {
@@ -18,7 +19,7 @@ namespace Spedia.EndPoints.StudentEndPoints.DeleteStudent
                 await IStudent.Delete(student);
                 return new DeleteStudentResponse
                 {
-                    ErrorCode = 0,
+                    ErrorCode = (int)ErrorCodeResponse.Success,
                     IsSuccess = true,
                     Message = "تم مسح الطالب",
                     Data = null
@@ -29,7 +30,7 @@ namespace Spedia.EndPoints.StudentEndPoints.DeleteStudent
                 return new DeleteStudentResponse
                 {
                     // 105 => ID Not Found
-                    ErrorCode = 105,
+                    ErrorCode = (int)ErrorCodeResponse.StudentIDNotFound,
                     IsSuccess = false,
                     Message = "هذا الطالب غير موجود",
                     Data = null
