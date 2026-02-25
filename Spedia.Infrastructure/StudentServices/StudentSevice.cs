@@ -34,6 +34,11 @@ namespace Spedia.EndPoints.StudentEndPoints.StudentContextService
             return await Context.StudentTBs.Where(x => x.StudentEmail == email).FirstOrDefaultAsync();
         }
 
+        public async Task<StudentTB?> GetStudentByName(string name)
+        {
+            return await Context.StudentTBs.Where(x => x.StudentName == name).FirstOrDefaultAsync();
+        }
+
         public async Task UpdateStudent(StudentTB studentTB)
         {
              Context.Update(studentTB);

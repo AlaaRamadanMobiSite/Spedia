@@ -26,14 +26,16 @@ namespace Spedia.EndPoints.StudentEndPoints.V1.AddStudent
             try
             {
                 var response =await studentUseCase.AddStudentAsync(request);
-                if (response.ErrorCode == 201)
+                if (response.ErrorCode != 101)
                     await Send.ResponseAsync(response,201, cancellationToken);
+                else if(response.ErrorCode != 107)
+                    await Send.ResponseAsync(response, 400, cancellationToken);
                 else
                     await Send.ResponseAsync(response, 400, cancellationToken);
             }
             catch (ArgumentException ex)
             {
-                AddError(ex.Message); // بتضيف الرسالة لليستة الأخطاء
+                AddError(ex.Message); 
                 await Send.ErrorsAsync(400, cancellationToken);
             }
         }

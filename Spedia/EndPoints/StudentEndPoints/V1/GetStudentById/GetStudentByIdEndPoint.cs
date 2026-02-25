@@ -22,7 +22,7 @@ namespace Spedia.EndPoints.StudentEndPoints.V1.GetStudentById
             try
             {
                 var student = await getStudent.GetStudentByIDAsync(request);
-                if (student.ErrorCode == 200)
+                if (student.ErrorCode != 105)
                     await Send.ResponseAsync(student, 200, cancellationToken);
                 else
                     await Send.ResponseAsync(student, 400, cancellationToken);

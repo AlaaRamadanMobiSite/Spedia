@@ -1,6 +1,7 @@
 ﻿using Spedia.Application.Student.GetAllStudent;
 using Spedia.DataBaseModels;
 using Spedia.EndPoints.StudentEndPoints.StudentContextService;
+using System.Linq;
 
 namespace Spedia.EndPoints.StudentEndPoints.GetAllStudents
 {
@@ -12,7 +13,7 @@ namespace Spedia.EndPoints.StudentEndPoints.GetAllStudents
             this.IStudent = IStudent;
         }
 
-        public async Task<GetAllStudentResponse> GetAllStudentAsync()
+        public async Task<GetAllStudentResponse> GetAllStudentAsync(GetAllStudentRequest request)
         {
             var student =  await IStudent.GetAll();
 
@@ -42,7 +43,7 @@ namespace Spedia.EndPoints.StudentEndPoints.GetAllStudents
                         StudentEmail = e.StudentEmail,
                         StudentImage = e.StudentImage,
                         StudentPass = e.StudentPass,
-                    }).ToList()
+                    }).Skip((request.PageNumber - 1) * request.RowCount).Take(request.RowCount).ToList()
                 };
             }
         }

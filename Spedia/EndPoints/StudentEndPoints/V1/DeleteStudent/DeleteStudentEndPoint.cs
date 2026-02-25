@@ -24,11 +24,10 @@ namespace Spedia.EndPoints.StudentEndPoints.V1.DeleteStudent
             try
             {
                 var student = await useCase.DeleteStudentAsync(request.Id);
-                if (student.ErrorCode == 204)
+                if (student.ErrorCode != 105)
                     await Send.ResponseAsync(student, 204, cancellationToken);
                 else
                     await Send.ResponseAsync(student, 400, cancellationToken);
-
             }
             catch (ArgumentException ex)
             {

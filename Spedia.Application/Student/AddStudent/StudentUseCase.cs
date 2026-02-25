@@ -24,16 +24,28 @@ namespace Spedia.EndPoints.StudentEndPoints.AddStudent
             var domain = new StudentDomainModel
                 (request.StudentName , request.StudentEmail , request.StudentPass, studentImagePath, request.LevelId);
 
-            var studentExist =await IStudent.GetStudentByEmail(request.StudentEmail);
-            if (studentExist != null)
+            var studentEmailExist = await IStudent.GetStudentByEmail(request.StudentEmail);
+            var studentNameExist = await IStudent.GetStudentByName(request.StudentName);
+            if (studentNameExist != null)
             {
                 return new AddStudentResponse()
                 {
-                    // 101 => Email Exist
+                    // 101 => Name Exist
                     ErrorCode = 101,
-                    Message = "هذا الايميل موجود",
+                    Message = "هذا الاسم موجود",
                     IsSuccess = false,
                     Data =null
+                };
+            }
+            else if(studentEmailExist != null)
+            {
+                return new AddStudentResponse()
+                {
+                    // 107 => Email Exist
+                    ErrorCode = 107,
+                    Message = "هذا الايميل موجود",
+                    IsSuccess = false,
+                    Data = null
                 };
             }
             else
