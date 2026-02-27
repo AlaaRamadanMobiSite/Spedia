@@ -3,6 +3,7 @@ using Spedia.Application.Student.GetAllStudent;
 using Spedia.DataBaseModels;
 using Spedia.EndPoints.StudentEndPoints.StudentContextService;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
 
 namespace Spedia.EndPoints.StudentEndPoints.GetAllStudents
 {
@@ -16,11 +17,11 @@ namespace Spedia.EndPoints.StudentEndPoints.GetAllStudents
 
         public async Task<GetAllStudentResponse> GetAllStudentAsync(GetAllStudentRequest request)
         {
-            var student =  await IStudent.GetAll();
+            var student =await IStudent.GetAll();
 
             if(student == null)
             {
-                return new GetAllStudentResponse
+                return  new GetAllStudentResponse
                 {
                     // 108 => StudentList Null
                     ErrorCode = (int)ErrorCodeResponse.StudentListNull,
@@ -31,12 +32,12 @@ namespace Spedia.EndPoints.StudentEndPoints.GetAllStudents
             }
             else
             {
-                return new GetAllStudentResponse
+                return  new GetAllStudentResponse
                 {
                     ErrorCode = (int)ErrorCodeResponse.Success,
                     Message = "الطلاب الموجوده",
                     IsSuccess = true,
-                    Data = student.Select(e => new GetAllStudentDto
+                    Data = await  student.Select(e => new GetAllStudentDto
                     {
                         StudentId = e.StudentId,
                         StudentName = e.StudentName,
@@ -44,7 +45,8 @@ namespace Spedia.EndPoints.StudentEndPoints.GetAllStudents
                         StudentEmail = e.StudentEmail,
                         StudentImage = e.StudentImage,
                         StudentPass = e.StudentPass,
-                    }).Skip((request.PageNumber - 1) * request.RowCount).Take(request.RowCount).ToList()
+                        LevelName = e.Level.LevelName
+                    }).Skip((request.PageNumber - 1) * request.RowCount).Take(request.RowCount).ToListAsync()
                 };
             }
         }

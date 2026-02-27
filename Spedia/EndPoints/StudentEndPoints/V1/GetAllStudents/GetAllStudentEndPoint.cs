@@ -21,16 +21,16 @@ namespace Spedia.EndPoints.StudentEndPoints.V1.GetAllStudents
             //Description(x => x.WithTags("Grades"));
         }
 
-        public override async Task HandleAsync(GetAllStudentRequest request, CancellationToken cancellationToken)
+        public override async Task  HandleAsync(GetAllStudentRequest request, CancellationToken cancellationToken)
         {
             try
             {
                 var response = await UseCase.GetAllStudentAsync(request);
 
                 if (response.ErrorCode != 105)
-                    await Send.ResponseAsync(response, 200, cancellationToken);
+                   await  Send.ResponseAsync(response, 200, cancellationToken);
                 else
-                    await Send.ResponseAsync(response, 400, cancellationToken);
+                   await  Send.ResponseAsync(response, 400, cancellationToken);
 
             }
             catch (ArgumentException ex)

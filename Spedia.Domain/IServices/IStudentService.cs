@@ -5,8 +5,8 @@ namespace Spedia.EndPoints.StudentEndPoints.StudentContextService
     public interface IStudentService
     {
         Task AddStudent(StudentTB studentTB);
-        Task<List<StudentTB>> GetAll();
-        Task<StudentTB> GetStudentByID(int studentId);
+        Task<IQueryable<StudentTB>> GetAll();
+        Task<StudentTB?> GetStudentByID(int studentId);
         Task<StudentTB?> GetStudentByEmail(string email);
         Task<StudentTB?> GetStudentByName(string name);
         Task UpdateStudent(StudentTB studentTB);

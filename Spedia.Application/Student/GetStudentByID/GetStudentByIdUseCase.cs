@@ -44,7 +44,8 @@ namespace Spedia.Application.Student.GetStudentByID
                         LevelId = student.LevelId,
                         StudentEmail = student.StudentEmail,
                         StudentImage = student.StudentImage,
-                        StudentPass = student.StudentPass   
+                        StudentPass = student.StudentPass,
+                        LevelName = student.Level.LevelName,
                     },
                 };
             }

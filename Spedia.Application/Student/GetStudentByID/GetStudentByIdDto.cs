@@ -13,6 +13,7 @@ namespace Spedia.Application.Student.GetStudentByID
         public string StudentEmail { get; set; } = string.Empty;
         public string StudentPass { get; set; } = string.Empty;
         public int LevelId { get; set; }
+        public string LevelName { get; set; } = string.Empty;
         public string? StudentImage { get; set; }
     }
 }

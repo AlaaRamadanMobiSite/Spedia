@@ -19,14 +19,17 @@ namespace Spedia.EndPoints.StudentEndPoints.StudentContextService
             await Context.SaveChangesAsync();
         }
 
-        public async Task<List<StudentTB>> GetAll()
+        public async Task<IQueryable<StudentTB>> GetAll()
         {
-            return await Context.StudentTBs.ToListAsync();
+            var quiry = Context.StudentTBs.AsNoTracking();
+            return await Task.FromResult(quiry);
         }
 
         public async Task<StudentTB?> GetStudentByID(int studentId)
         {
-            return await Context.StudentTBs.Where(x => x.StudentId == studentId).FirstOrDefaultAsync();
+            // IQueryable الافضل انك تستخدم هنا كمان
+            return await Context.StudentTBs.Include(e=> e.Level)
+                .Where(x => x.StudentId == studentId).FirstOrDefaultAsync();
         }
 
         public async Task<StudentTB?> GetStudentByEmail(string email)
