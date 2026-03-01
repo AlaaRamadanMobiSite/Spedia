@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Spedia.DataBaseModels;
+using Spedia.Domain.DataBaseModels;
 
 namespace Spedia.DataBaseContext
 {
@@ -16,6 +17,7 @@ namespace Spedia.DataBaseContext
 
         public DbSet<StudentTB> StudentTBs { get; set; }
         public DbSet<LevelTB> LevelTBs { get; set; }
+        public DbSet<StudentFather> StudentFathers { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

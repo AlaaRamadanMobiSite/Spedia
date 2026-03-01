@@ -3,13 +3,16 @@ using FastEndpoints.Swagger;
 using Microsoft.EntityFrameworkCore;
 using Spedia.Application.StandardResponse;
 using Spedia.Application.Student.GetStudentByID;
+using Spedia.Application.StudentFatherUseCases.AddStudentFather;
 using Spedia.DataBaseContext;
 using Spedia.DataBaseModels;
+using Spedia.Domain.IServices;
 using Spedia.EndPoints.StudentEndPoints.AddStudent;
 using Spedia.EndPoints.StudentEndPoints.DeleteStudent;
 using Spedia.EndPoints.StudentEndPoints.GetAllStudents;
 using Spedia.EndPoints.StudentEndPoints.StudentContextService;
 using Spedia.EndPoints.StudentEndPoints.UpdateStudent;
+using Spedia.Infrastructure.StudentFatherServices;
 using Spedia.UploadFiles;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -25,7 +28,8 @@ builder.Services.AddFastEndpoints();
 builder.Services.SwaggerDocument();
 
 var connection = builder.Configuration.GetConnectionString("Default");
-builder.Services.AddDbContext<SpediaContext>(op => op.UseSqlServer(connection));
+builder.Services.AddDbContext<SpediaContext>(op => op.UseSqlServer
+(connection , b=> b.MigrationsAssembly("Spedia.Infrastructure")));
 
 builder.Services.AddScoped<IStudentService, StudentSevice>();
 builder.Services.AddScoped<StudentUseCase>();
@@ -34,6 +38,8 @@ builder.Services.AddScoped<UpdateStudentUseCase>();
 builder.Services.AddScoped<IUploadImage, UploadImage>();
 builder.Services.AddScoped<DeleteStudentUseCase>();
 builder.Services.AddScoped<GetStudentByIdUseCase>();
+builder.Services.AddScoped<IStudentFatherService, StudentFatherService>();
+builder.Services.AddScoped<AddStudentFatherUseCase>();
 
 
 var app = builder.Build();
@@ -44,8 +50,8 @@ app.UseFastEndpoints(config =>
         ctx.Response.StatusCode = 400;
         return new APIResponse<object>
         {
-            //ErrorCode = int.TryParse(failures.First().ErrorCode, out int code) ? code : 400,
-            ErrorCode = int.Parse(failures.First().ErrorCode),
+            ErrorCode = int.TryParse(failures.First().ErrorCode, out int code) ? code : 400,
+            //ErrorCode = int.Parse(failures.First().ErrorCode),
             Message = failures.First().ErrorMessage,
             IsSuccess = false,
             Data = null

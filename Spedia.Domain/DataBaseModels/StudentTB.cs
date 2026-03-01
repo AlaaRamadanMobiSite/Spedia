@@ -1,4 +1,6 @@
-﻿namespace Spedia.DataBaseModels
+﻿using Spedia.Domain.DataBaseModels;
+
+namespace Spedia.DataBaseModels
 {
     public class StudentTB
     {
@@ -9,6 +11,7 @@
         public int LevelId { get; set; }
         public string StudentImage { get; set; } = string.Empty;
         public LevelTB Level { get; set; } = default!;
+        public ICollection<StudentFather> StudentFather { get; set; } = new HashSet<StudentFather>();
 
     }
 }

@@ -19,6 +19,10 @@ namespace Spedia.EndPoints.StudentEndPoints.AddStudent
                 WithMessage("يجب ادخال ايميل الطالب").WithErrorCode(((int)ErrorCodeResponse.StudentEmailRequired).ToString())
                .EmailAddress()
                .WithMessage("يجب ادخال الايميل بطريقه صحيحه").WithErrorCode(((int)ErrorCodeResponse.StudentEmailCorrectly).ToString());
+            RuleFor(e => e.StudentPass).NotEmpty().WithMessage("ادخل كلمه المرور")
+                .WithErrorCode(((int)ErrorCodeResponse.StudentPasswordRequired).ToString());
+            RuleFor(e => e.LevelId).NotEmpty().WithMessage("ادخل رقم الصف")
+                .WithErrorCode(((int)ErrorCodeResponse.StudentLevelIdRequired).ToString());
         }
     }
 }

@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
-
 using System.IO;
 namespace Spedia.UploadFiles
 {
@@ -12,7 +11,6 @@ namespace Spedia.UploadFiles
         {
             _environment = environment;
         }
-
 
         public string post_file(IFormFile file)
         {

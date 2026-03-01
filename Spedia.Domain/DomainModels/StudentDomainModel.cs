@@ -7,7 +7,7 @@
         public string StudentEmail { get; private set; } = string.Empty;
         public string StudentPass { get; private set; } = string.Empty;
         public int LevelId { get; private set; }
-        public string StudentImage { get; set; } = string.Empty;
+        public string StudentImage { get;private set; } = string.Empty;
 
         private StudentDomainModel()
         {
@@ -32,12 +32,12 @@
         //}
 
 
-        public StudentDomainModel(string StudentName, string StudentEmail, string StudentPass, string studentImage, int LevelId)
+        public StudentDomainModel(string studentName, string studentEmail, string studentPass, string studentImage, int levelId)
         {
-            UpdateStudentName(StudentName);
-            UpdateStudentEmail(StudentEmail);
-            UpdateStudentPass(StudentPass);
-            UpdateLevelId(LevelId);
+            UpdateStudentName(studentName);
+            UpdateStudentEmail(studentEmail);
+            UpdateStudentPass(studentPass);
+            UpdateLevelId(levelId);
             UpdateImage(studentImage);
         }
 
@@ -51,32 +51,32 @@
 
         }
 
-        public void UpdateStudentName(string StudentName)
+        public void UpdateStudentName(string studentName)
         {
-            if (string.IsNullOrWhiteSpace(StudentName) || StudentName.Trim().Split(" ").Length < 4)
+            if (string.IsNullOrWhiteSpace(studentName) || studentName.Trim().Split(" ").Length < 4)
                 throw new ArgumentException("الاسم يجب ان يكون رباعي");
-            this.StudentName = StudentName;
+            StudentName = studentName;
         }
 
-        public void UpdateStudentEmail(string StudentEmail)
+        public void UpdateStudentEmail(string studentEmail)
         {
-            if (string.IsNullOrWhiteSpace(StudentEmail) || !StudentEmail.Trim().Contains("@"))
+            if (string.IsNullOrWhiteSpace(studentEmail) || !studentEmail.Trim().Contains("@"))
                 throw new ArgumentException("يجب الايميل يحتوي علي حرف @");
-            this.StudentEmail = StudentEmail;
+            StudentEmail = studentEmail;
         }
 
-        public void UpdateStudentPass(string StudentPass)
+        public void UpdateStudentPass(string studentPass)
         {
-            if (string.IsNullOrWhiteSpace(StudentPass))
-                throw new ArgumentException("اخل كلمه المرور");
-            this.StudentPass = StudentPass; 
+            if (string.IsNullOrWhiteSpace(studentPass))
+                throw new ArgumentException("ادخل كلمه المرور");
+            StudentPass = studentPass; 
         }
 
-        public void UpdateLevelId(int LevelId)
+        public void UpdateLevelId(int levelId)
         {
-            if (LevelId <= 0)
-                throw new ArgumentException("اخل رقم الصف");
-            this.LevelId = LevelId;
+            if (levelId <= 0)
+                throw new ArgumentException("ادخل رقم الصف");
+            LevelId = levelId;
         }
 
         public void UpdateImage(string studentImage)

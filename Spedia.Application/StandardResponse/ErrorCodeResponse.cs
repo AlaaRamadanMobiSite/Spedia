@@ -17,5 +17,7 @@ namespace Spedia.Application.StandardResponse
         StudentEmailCorrectly = 106,
         StudentEmailExist = 107,
         StudentListNull = 108,
+        StudentPasswordRequired = 109,
+        StudentLevelIdRequired = 110,
     }
 }

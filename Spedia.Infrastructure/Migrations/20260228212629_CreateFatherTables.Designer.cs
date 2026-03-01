@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Spedia.DataBaseContext;
 
@@ -10,9 +11,11 @@ using Spedia.DataBaseContext;
 namespace Spedia.Migrations
 {
     [DbContext(typeof(SpediaContext))]
-    partial class SpediaContextModelSnapshot : ModelSnapshot
+    [Migration("20260228212629_CreateFatherTables")]
+    partial class CreateFatherTables
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -35,7 +38,7 @@ namespace Spedia.Migrations
 
                     b.HasKey("LevelId");
 
-                    b.ToTable("LevelTBs");
+                    b.ToTable("LevelTB");
                 });
 
             modelBuilder.Entity("Spedia.DataBaseModels.StudentTB", b =>
@@ -104,7 +107,7 @@ namespace Spedia.Migrations
 
                     b.HasIndex("StudentId");
 
-                    b.ToTable("StudentFathers");
+                    b.ToTable("StudentFather");
                 });
 
             modelBuilder.Entity("Spedia.DataBaseModels.StudentTB", b =>
