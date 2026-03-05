@@ -41,17 +41,18 @@
             UpdateImage(studentImage);
         }
 
-        public void UpdateStudent(string? studentName, string? studentEmail, string? studentPass, string studentImage, int levelId)
+        public static void UpdateStudent(string? studentName, string? studentEmail, string? studentPass, string? studentImage, int levelId)
         {
-            if (!string.IsNullOrWhiteSpace(studentName)) UpdateStudentName(studentName);
-            if(!string.IsNullOrWhiteSpace(studentEmail)) UpdateStudentEmail(studentEmail);
-            if (!string.IsNullOrWhiteSpace(studentPass)) UpdateStudentPass(studentPass);
-            if (levelId > 0) UpdateLevelId(levelId);
-            UpdateImage(studentImage);
-
+            var student = new StudentDomainModel();
+             if(!string.IsNullOrWhiteSpace(studentName)) student.UpdateStudentName(studentName);
+             if(!string.IsNullOrWhiteSpace(studentEmail)) student.UpdateStudentEmail(studentEmail);
+             if(!string.IsNullOrWhiteSpace(studentPass)) student.UpdateStudentPass(studentPass);
+             if(levelId > 0) student.UpdateLevelId(levelId);
+             if(!string.IsNullOrWhiteSpace(studentImage)) student.UpdateImage(studentImage);
+           
         }
 
-        public void UpdateStudentName(string studentName)
+        public  void UpdateStudentName(string studentName)
         {
             if (string.IsNullOrWhiteSpace(studentName) || studentName.Trim().Split(" ").Length < 4)
                 throw new ArgumentException("الاسم يجب ان يكون رباعي");
@@ -83,8 +84,6 @@
         {
             this.StudentImage = studentImage;
         }
-
-
 
     }
 }

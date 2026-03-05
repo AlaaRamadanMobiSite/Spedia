@@ -17,19 +17,22 @@ namespace Spedia.Domain.DataBaseModels
         public int StudentId { get;private set; }
         public StudentTB Student { get; set; } = default!;
 
-        private StudentFather()
-        {
+        //private StudentFather()
+        //{
                 
-        }
+        //}
 
-        public StudentFather
-            (string fatherName , string fatherEmail , string fatherPassword , string fatherPhone ,int studentID)
+        public static StudentFather Create
+            ( string fatherName , string fatherEmail , string fatherPassword , string fatherPhone ,int studentID)
         {
-            UpdateFatherName(fatherName);
-            UpdateFatherEmail(fatherEmail);
-            UpdateFatherPass(fatherPassword);
-            UpdateFatherPhone(fatherPhone);
-            UpdateFatherStudenId(studentID);
+            var s = new StudentFather();
+            s.UpdateFatherName(fatherName);
+            s.UpdateFatherEmail(fatherEmail);
+            s.UpdateFatherPass(fatherPassword);
+            s.UpdateFatherPhone(fatherPhone);
+            s.UpdateFatherStudenId(studentID);
+
+            return s;   
         }
          
         public void UpdateFatherName(string fatherName)

@@ -33,19 +33,22 @@ namespace Spedia.EndPoints.StudentEndPoints.UpdateStudent
                 };   
             }
 
-            var domain = new StudentDomainModel
-                (student.StudentName, student.StudentEmail , student.StudentPass ,student.StudentImage, student.LevelId);
-            var studentImagePath = "";
+            //var domain = new StudentDomainModel
+            //    (student.StudentName, student.StudentEmail , student.StudentPass ,student.StudentImage, student.LevelId);
+            var studentImagePath = student.StudentImage;
             if (request.StudentImage != null)
                 studentImagePath = uploadImage.post_file(request.StudentImage);
 
-            domain.UpdateStudent(request.StudentName, request.StudentEmail, request.StudentPass, studentImagePath, request.LevelId);
+            StudentDomainModel.UpdateStudent(request.StudentName, request.StudentEmail, request.StudentPass, studentImagePath, request.LevelId);
 
-            var hashPass = BCrypt.Net.BCrypt.HashPassword(domain.StudentPass);
-            student.StudentName = domain.StudentName;
-            student.StudentEmail = domain.StudentEmail;
+            var hashPass = student.StudentPass;
+            if(request.StudentPass != null)
+                BCrypt.Net.BCrypt.HashPassword(request.StudentPass);
+
+           if(!string.IsNullOrWhiteSpace(request.StudentName)) student.StudentName = request.StudentName;
+           if(!string.IsNullOrWhiteSpace(request.StudentEmail)) student.StudentEmail = request.StudentEmail;
             student.StudentPass = hashPass;
-            student.LevelId = domain.LevelId;
+           if(request.LevelId != 0) student.LevelId = request.LevelId;
             student.StudentImage = studentImagePath;
 
             await IStudent.UpdateStudent(student);
@@ -59,7 +62,7 @@ namespace Spedia.EndPoints.StudentEndPoints.UpdateStudent
                     StudentId = student.StudentId,
                     StudentName = student.StudentName,
                     LevelId = student.LevelId,
-                    StudentEmail = domain.StudentEmail,
+                    StudentEmail = student.StudentEmail,
                     StudentPass = hashPass,
                     StudentImage = studentImagePath,
                 }

@@ -19,7 +19,15 @@ namespace Spedia.Application.StudentFatherUseCases.AddStudentFather
 
         public async Task<AddFatherResponse> AddFatherAsync(AddFatherRequest request)
         {
-            var studentFather = new StudentFather
+            //var studentFather = new StudentFather
+            //    (request.StudentFatherName,
+            //    request.StudentFatherEmail,
+            //    request.StudentFatherPassword,
+            //    request.StudentFatherPhone,
+            //    request.StudentId);
+
+
+           var studentFather =  StudentFather.Create
                 (request.StudentFatherName,
                 request.StudentFatherEmail,
                 request.StudentFatherPassword,
@@ -39,7 +47,6 @@ namespace Spedia.Application.StudentFatherUseCases.AddStudentFather
                     StudentFatherPassword = studentFather.StudentFatherPassword,
                     StudentFatherPhone = studentFather.StudentFatherPhone,
                     StudentId = studentFather.StudentId,
-                    
                 }
             };
 
